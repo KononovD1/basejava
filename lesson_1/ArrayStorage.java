@@ -3,31 +3,25 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size = 0;
+    int maxSize = storage.length;
 
     void clear() {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] != null) {
-                storage[i] = null;
-            } else {
-                break;
-            }
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
         }
+        size = 0;
     }
 
     void save(Resume r) {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
+        if (size < maxSize) {
+            storage[size++] = r;
         }
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                return null;
-            } else if (storage[i].uuid == uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
         }
@@ -35,16 +29,13 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                return;
-            } else if (storage[i].uuid == uuid) {
-                for (int j = i; j < 10000; j++) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                for (int j = i; j < size; j++) {
                     storage[j] = storage[j + 1];
-                    if (storage[j + 1] == null) {
-                        return;
-                    }
                 }
+                size--;
+                return;
             }
         }
     }
@@ -53,24 +44,14 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                Resume[] filled = new Resume[i];
-                for (int idFilled = 0; idFilled < i; idFilled++) {
-                    filled[idFilled] = storage[idFilled];
-                }
-                return filled;
-            }
+        Resume[] filled = new Resume[size];
+        for (int i = 0; i < size; i++) {
+            filled[i] = storage[i];
         }
-        return new Resume[0];
+        return filled;
     }
 
     int size() {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                return i;
-            }
-        }
-        return 10000;
+        return size;
     }
 }
