@@ -55,10 +55,6 @@ public abstract class AbstractArrayStorage implements Storage {
         size--;
     }
 
-    protected abstract void addElement(Resume resume, int index);
-
-    protected abstract void refillElement(int index);
-
     /**
      * @return array, contains only Resumes in storage (without null)
      */
@@ -74,6 +70,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
         return storage[index];
     }
+
+    protected abstract void addElement(Resume resume, int index);
+
+    protected abstract void refillElement(int index);
 
     protected abstract int findIndex(String uuid);
 }
