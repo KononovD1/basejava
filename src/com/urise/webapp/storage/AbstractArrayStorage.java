@@ -37,10 +37,10 @@ public abstract class AbstractArrayStorage implements Storage {
         new StorageException("Storage overflow", resume.getUuid());
     }
 
-    public final void update(Resume resume, Resume resumeOld) {
-        int index = findIndex(resumeOld.getUuid());
+    public final void update(Resume resume) {
+        int index = findIndex(resume.getUuid());
         if (index < 0) {
-            throw new NotExistStorageException(resumeOld.getUuid());
+            throw new NotExistStorageException(resume.getUuid());
         }
         storage[index] = resume;
     }
