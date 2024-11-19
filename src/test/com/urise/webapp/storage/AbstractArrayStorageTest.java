@@ -12,16 +12,23 @@ import urise.webapp.storage.Storage;
 
 import static org.junit.Assert.*;
 
-public class AbstractArrayStorageTest {
-    private final Storage storage;
+public abstract class AbstractArrayStorageTest {
+    private Storage storage;
     private static final String UUID_1 = "uuid_1";
     private static final String UUID_2 = "uuid_2";
     private static final String UUID_3 = "uuid_3";
     private static final String UUID_4 = "uuid_4";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
+
+    static {
+        RESUME_1 = new Resume(UUID_1);
+        RESUME_2 = new Resume(UUID_2);
+        RESUME_3 = new Resume(UUID_3);
+        RESUME_4 = new Resume(UUID_4);
+    }
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -54,8 +61,6 @@ public class AbstractArrayStorageTest {
     public void save() {
         storage.save(RESUME_4);
         assertEquals(4, storage.size());
-        assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
-
         assertGet(RESUME_4);
         assertSize(4);
     }
@@ -72,7 +77,6 @@ public class AbstractArrayStorageTest {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            e.printStackTrace();
             Assert.fail("Early overflow");
         }
         storage.save(new Resume());
@@ -82,7 +86,6 @@ public class AbstractArrayStorageTest {
     public void update() {
         Resume newResume = new Resume(UUID_3);
         storage.update(newResume);
-        Assert.assertEquals(newResume, storage.get(UUID_3));
         assertSame(newResume, storage.get(UUID_3));
     }
 
@@ -90,7 +93,6 @@ public class AbstractArrayStorageTest {
     public void updateNotExist() {
         Resume newResume = new Resume(UUID_4);
         storage.update(new Resume(UUID_4));
-        assertEquals(newResume, storage.get(UUID_4));
     }
 
     @Test(expected = NotExistStorageException.class)
