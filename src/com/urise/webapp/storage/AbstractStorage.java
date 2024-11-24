@@ -7,7 +7,7 @@ import urise.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public final void save(Resume resume) {
-        Object key = findKey(resume.getUuid());
+        Object key = getNotExistedKey(resume.getUuid());
         if (isExist(key)) {
             throw new ExistStorageException(resume.getUuid());
         }
@@ -43,6 +43,14 @@ public abstract class AbstractStorage implements Storage {
         Object key = findKey(uuid);
         if (!isExist(key)) {
             throw new NotExistStorageException(uuid);
+        }
+        return key;
+    }
+
+    protected Object getNotExistedKey(String uuid) {
+        Object key = findKey(uuid);
+        if (isExist(key)) {
+            throw new ExistStorageException(uuid);
         }
         return key;
     }
