@@ -4,11 +4,11 @@ import urise.webapp.exception.StorageException;
 import urise.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Array based storage for Resumes
  */
-//public abstract class AbstractArrayStorage implements Storage {
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
     public static final int STORAGE_LIMIT = 1000;
@@ -34,8 +34,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public final Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    @Override
+    public final List<Resume> getList() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     public Resume doGet(Object index) {

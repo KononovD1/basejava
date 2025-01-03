@@ -3,25 +3,22 @@ package urise.webapp.storage;
 import urise.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ListStorage extends AbstractStorage {
+public class MapStorageResume extends AbstractStorage {
 
-    private final ArrayList<Resume> list = new ArrayList<>();
+    private final Map<String, Resume> hashMap = new HashMap<>();
 
     @Override
-    protected Integer findKey(String uuid) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return null;
+    protected Resume findKey(String uuid) {
+        return hashMap.get(uuid);
     }
 
     @Override
     protected void doSave(Resume resume, Object key) {
-        list.add(resume);
+        hashMap.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -34,31 +31,31 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Resume resume, Object key) {
-        list.set((Integer) key, resume);
+        hashMap.replace(resume.getUuid(), resume);
     }
 
     @Override
     protected void doDelete(Object key) {
-        list.remove(((Integer) key).intValue());
+        hashMap.remove(((Resume) key).getUuid());
     }
 
     @Override
     protected Resume doGet(Object key) {
-        return list.get((Integer) key);
+        return (Resume) key;
     }
 
     @Override
     public void clear() {
-        list.clear();
+        hashMap.clear();
     }
 
     @Override
     public List<Resume> getList() {
-        return new ArrayList<>(list);
+        return new ArrayList<>(hashMap.values());
     }
 
     @Override
     public int size() {
-        return list.size();
+        return hashMap.size();
     }
 }
