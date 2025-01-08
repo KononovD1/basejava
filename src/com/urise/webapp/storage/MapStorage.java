@@ -26,10 +26,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object key) {
-        if (key == null) {
-            return false;
-        }
-        return true;
+        return key != null;
     }
 
     @Override

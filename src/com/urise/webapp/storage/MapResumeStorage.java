@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorageResume extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage {
 
     private final Map<String, Resume> hashMap = new HashMap<>();
 
@@ -23,10 +23,7 @@ public class MapStorageResume extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object key) {
-        if (key == null) {
-            return false;
-        }
-        return true;
+        return key != null;
     }
 
     @Override

@@ -6,7 +6,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-    private static final Comparator RESUME_COMPARATOR = (Comparator<Resume>) (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
+
+    private static final Comparator<Resume> RESUME_COMPARATOR = (Resume o1, Resume o2) -> {
+        int size;
+        return o1.getUuid().compareTo(o2.getUuid());
+    };
 
     @Override
     protected void refillElement(int index) {
