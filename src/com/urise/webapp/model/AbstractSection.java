@@ -1,4 +1,4 @@
 package urise.webapp.model;
 
-public abstract class AbstractSection{
+public abstract class AbstractSection {
 }

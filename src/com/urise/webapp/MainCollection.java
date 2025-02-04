@@ -58,6 +58,5 @@ public class MainCollection {
 
         resumes.remove(1);
         System.out.println(resumes);
-
     }
 }

@@ -25,7 +25,6 @@ public class Experience {
         if (!name.equals(that.name)) return false;
         if (!website.equals(that.website)) return false;
         return periods != null ? periods.equals(that.periods) : that.periods == null;
-
     }
 
     @Override

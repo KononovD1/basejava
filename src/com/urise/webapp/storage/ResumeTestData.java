@@ -10,6 +10,11 @@ import java.util.Map;
 
 public class ResumeTestData {
     public static void main(String[] args) {
+        Resume resume = CreateResume();
+        printResume(resume);
+    }
+
+    static Resume CreateResume() {
         Map<ContactType, String> contacts = new HashMap<>();
         for (ContactType c : ContactType.values()) {
             switch (c.name()) {
@@ -89,7 +94,7 @@ public class ResumeTestData {
             }
         }
         Resume resume = new Resume("Григорий Кислин", contacts, sections);
-        printResume(resume);
+        return resume;
     }
 
     static void printResume(Resume resume) {

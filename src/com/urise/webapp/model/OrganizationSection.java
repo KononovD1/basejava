@@ -1,9 +1,14 @@
 package urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrganizationSection extends AbstractSection {
     private List<Experience> info;
+
+    public OrganizationSection(Experience... info) {
+        this(Arrays.asList(info));
+    }
 
     public OrganizationSection(List<Experience> info) {
         this.info = info;
