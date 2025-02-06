@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
-    private File directory;
+    private final File directory;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must not null");
@@ -25,12 +25,20 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files)
+                doDelete(file);
+        }
     }
 
     @Override
     public int size() {
-        return 0;
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return 0;
+        }
+        return files.length;
     }
 
     @Override
