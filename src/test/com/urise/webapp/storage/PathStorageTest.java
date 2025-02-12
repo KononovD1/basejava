@@ -1,7 +1,5 @@
 package com.urise.webapp.storage;
 
-import urise.webapp.storage.AbstractPathStorage;
-import urise.webapp.storage.ObjectStreamPathStorage;
 import urise.webapp.storage.PathStorage;
 import urise.webapp.storage.serializer.ObjectSerializer;
 
