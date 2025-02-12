@@ -1,10 +1,12 @@
 package urise.webapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Experience {
+public class Experience implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
     String website;
     List<Period> periods = new ArrayList<>();

@@ -7,12 +7,15 @@ import urise.webapp.exception.NotExistStorageException;
 import urise.webapp.model.Resume;
 import urise.webapp.storage.Storage;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("D:\\Program Files\\Java\\BaseJava\\storage");
+
     protected Storage storage;
     private static final String UUID_1 = "uuid_1";
     private static final String UUID_2 = "uuid_2";
@@ -74,7 +77,7 @@ public abstract class AbstractStorageTest {
     public void update() {
         Resume newResume = new Resume(UUID_3, "Name3");
         storage.update(newResume);
-        assertSame(newResume, storage.get(UUID_3));
+        assertTrue(newResume.equals(storage.get(UUID_3)));
     }
 
     @Test(expected = NotExistStorageException.class)

@@ -93,5 +93,4 @@ public abstract class AbstractStorage<SK> implements Storage {
             return o1.getUuid().compareTo(o2.getUuid());
         }
     }
-
 }
