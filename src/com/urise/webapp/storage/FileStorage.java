@@ -10,21 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class FileStorage extends AbstractStorage<File> {
-    protected final File directory;
+    private final File directory;
 
     private SerializationStrategy serializationStrategy;
-
-    public FileStorage(File directory) {
-        Objects.requireNonNull(directory, "directory must not null");
-
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
-        }
-        if (!directory.canRead() || !directory.canWrite()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
-        }
-        this.directory = directory;
-    }
 
     public FileStorage(File directory, SerializationStrategy ss) {
         Objects.requireNonNull(directory, "directory must not null");
@@ -82,10 +70,10 @@ public class FileStorage extends AbstractStorage<File> {
     protected void doSave(Resume r, File file) {
         try {
             file.createNewFile();
-            doUpdate(r, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        doUpdate(r, file);
     }
 
     @Override
